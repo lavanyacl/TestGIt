@@ -1,0 +1,33 @@
+#############################
+
+HOW TO ADD A NEW REPOSITORY
+
+##############################
+
+
+BE IN THE DIRECTORY TO BE PUSHED
+
+# GIT INIT
+
+# GIT ADD -A
+
+# GIT COMMIT -M "SOME MESSAGE"
+
+# GIT REMOTE ADD ORIGIN (COPY THE LINK HTTPS clone URL)
+
+# GIT PUSH -U -F ORIGIN MASTER
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+DONE
+
+######################################################
+
+
+TO PUSH THE UPDATED CONTENTS TO PARSE
+
+***********************************
+GIT ADD -A 
+GIT COMMIT -A "UPDATED MESSAGE"
