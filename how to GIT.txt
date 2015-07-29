@@ -31,3 +31,9 @@ TO PUSH THE UPDATED CONTENTS TO PARSE
 ***********************************
 GIT ADD -A 
 GIT COMMIT -A "UPDATED MESSAGE"
+# GIT PUSH -U -F ORIGIN MASTER
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+DONE
+
