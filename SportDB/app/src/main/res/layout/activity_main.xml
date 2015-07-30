@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:id="@+id/txtViewEmail">
+    android:id="@+id/hello">
 
     <Button
         android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/txtview1"
+        android:id="@+id/txtViewEmail"
         android:layout_above="@+id/txtPhone"
         android:layout_alignStart="@+id/txtViewName" />
 
@@ -97,14 +97,5 @@
         android:id="@+id/txtViewID"
         android:layout_alignBottom="@+id/txtID"
         android:layout_alignStart="@+id/txtViewPhone" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="List All Record"
-        android:id="@+id/btnDisplayAll"
-        android:layout_above="@+id/btnPush"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp" />
 
 </RelativeLayout>
