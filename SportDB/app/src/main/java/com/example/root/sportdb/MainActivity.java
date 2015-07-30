@@ -27,15 +27,13 @@ public class MainActivity extends ActionBarActivity
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "lG75j5BVA3Y7K7HubpV2wMC3D5sJ9cP2mQnryYUy", "Ht2LOvXISgvZkaoMl1WQRzFup4NkF2GznKSO7j3D");
 
-       // addListenerOnButton();
+       addListenerOnButton();
        addListenerOnButton1();
 
     }
 
     public void addListenerOnButton()
     {
-
-
         button = (Button) findViewById(R.id.btnPush);
         button.setOnClickListener(new OnClickListener() {
            EditText id, name, email, phone;
@@ -43,8 +41,6 @@ public class MainActivity extends ActionBarActivity
 
             @Override
             public void onClick(View arg0) {
-
-
                 ParseObject testObject = new ParseObject("TestObject");
 
                 id = (EditText) findViewById(R.id.txtID);
@@ -57,12 +53,10 @@ public class MainActivity extends ActionBarActivity
                 Email = email.getText().toString();
                 Phone = phone.getText().toString();
 
-
                 testObject.put("ID", ID);
                 testObject.put("Name", Name);
                 testObject.put("Email", Email);
                 testObject.put("Phone", Phone);
-
 
                 testObject.saveInBackground();
                 Toast bread;
@@ -79,7 +73,6 @@ public class MainActivity extends ActionBarActivity
 
     public void addListenerOnButton1()
     {
-
         //Reading Parse for All Row's -- Listing Records
         button = (Button) findViewById(R.id.btnRead);
         button.setOnClickListener(new OnClickListener()
@@ -128,8 +121,6 @@ public class MainActivity extends ActionBarActivity
 
                     }
                 });
-
-
 
             }
 
