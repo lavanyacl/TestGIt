@@ -3,17 +3,24 @@ package com.example.root.sportdb;
 import android.app.Activity.*;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.parse.*;
 import com.parse.ParseObject;
 
 import java.util.List;
+import java.util.ArrayList;
 import android.util.*;
+import android.util.*;
+
+
 
 
 public class MainActivity extends ActionBarActivity
@@ -83,8 +90,10 @@ public class MainActivity extends ActionBarActivity
     {
 
         //Reading Parse Data to Variables
+
         button = (Button) findViewById(R.id.btnRead);
         button.setOnClickListener(new OnClickListener()
+
         {
             //EditText id, name, email, phone;
             String ID, Name, Email, Phone;
@@ -92,7 +101,7 @@ public class MainActivity extends ActionBarActivity
             public void onClick(View arg0)
             {
 
-                ParseObject testObject = new ParseObject("TestObject");
+                final ParseObject testObject = new ParseObject("TestObject");
                // ParseQuery query = ParseQuery.getQuery("TestObject");
                 //query.getInBackground("1wIp4sluuh", new GetCallback<ParseObject>() {
                 //    public void done(ParseObject object, ParseException e) {
@@ -112,24 +121,43 @@ public class MainActivity extends ActionBarActivity
                        // }
                    // }
                 //});
-
+                ListView lv;
+                lv  = (ListView) findViewById(R.id.listView);
+                final Adapter  adapter = new ArrayAdapter<String>(MainActivity.this,R.layout.abc_list_menu_item_layout);
 
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("TestObject");
-                query.whereEqualTo("Name", "Roger");
+                query.whereEqualTo("Name", "Latesh");
+
                 query.findInBackground(new FindCallback<ParseObject>() {
-                    public void done(List<ParseObject> testObjectList, ParseException e) {
+                   public void done(List<ParseObject> testObjectList, ParseException e) {
                         Toast bread;
-                        if (e == null) {
+                       String[] Names = new String[10];
+                      if (e == null) {
                             bread = Toast.makeText(getApplicationContext(), "Success" , Toast.LENGTH_LONG);
                             bread.show();
                             Log.d("test", "Retrieved " + testObjectList.size() + " testObjects");
+                            //access via new for-loop
+//                            for (ParseObject obj : testObjectList)
+  //                          {
+    //                            Names[0]=testObjectList.get(0).toString();
+  //                          }
+int k=0;
+                          for (ParseObject Name : testObjectList)
+                          {
+                              adapter.getItem(0);
+                         }
+                          //lv.setAdapter(adapter);
+                          bread = Toast.makeText(getApplicationContext(), Names[0] , Toast.LENGTH_LONG);
+                          bread.show();
                         } else {
                             bread = Toast.makeText(getApplicationContext(), "Error" , Toast.LENGTH_LONG);
                             bread.show();
                             Log.d("test", "Error: " + e.getMessage());
                         }
+
                     }
                 });
+
 
 
             }
