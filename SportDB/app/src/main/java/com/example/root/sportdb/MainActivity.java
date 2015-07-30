@@ -12,6 +12,9 @@ import android.widget.Toast;
 import com.parse.*;
 import com.parse.ParseObject;
 
+import java.util.List;
+import android.util.*;
+
 
 public class MainActivity extends ActionBarActivity
 {
@@ -90,22 +93,40 @@ public class MainActivity extends ActionBarActivity
             {
 
                 ParseObject testObject = new ParseObject("TestObject");
-                ParseQuery query = ParseQuery.getQuery("TestObject");
-                query.getInBackground("1wIp4sluuh", new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, ParseException e) {
-                        if (e == null) {
+               // ParseQuery query = ParseQuery.getQuery("TestObject");
+                //query.getInBackground("1wIp4sluuh", new GetCallback<ParseObject>() {
+                //    public void done(ParseObject object, ParseException e) {
+                 //       if (e == null) {
                             // object will be your testobject data
-                            String Name = object.getObjectId();
-                            String Email  = object.getObjectId();
-                            String Phone  = object.getObjectId();
+                  //          String Name = object.getObjectId();
+                   //         String Email  = object.getObjectId();
+                    //        String Phone  = object.getObjectId();
                             //Toast.makeText(this, "Error " + e, Toast.LENGTH_LONG).show();
                             //Toast.makeText(ParseObject.this,"Error "+ e, Toast.LENGTH_SHORT ).show();
-                            Toast bread;
+                    //        Toast bread;
+                     //       bread = Toast.makeText(getApplicationContext(), "Error" , Toast.LENGTH_LONG);
+                      //      bread.show();
+
+                        //} else {
+                            // something went wrong
+                       // }
+                   // }
+                //});
+
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("TestObject");
+                query.whereEqualTo("Name", "Roger");
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> testObjectList, ParseException e) {
+                        Toast bread;
+                        if (e == null) {
+                            bread = Toast.makeText(getApplicationContext(), "Success" , Toast.LENGTH_LONG);
+                            bread.show();
+                            Log.d("test", "Retrieved " + testObjectList.size() + " testObjects");
+                        } else {
                             bread = Toast.makeText(getApplicationContext(), "Error" , Toast.LENGTH_LONG);
                             bread.show();
-
-                        } else {
-                            // something went wrong
+                            Log.d("test", "Error: " + e.getMessage());
                         }
                     }
                 });
