@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.parse.*;
@@ -13,11 +16,14 @@ import com.parse.ParseObject;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.view.View.OnClickListener;
 
 
 public class MainActivity extends ActionBarActivity
 {
     Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -27,8 +33,9 @@ public class MainActivity extends ActionBarActivity
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "lG75j5BVA3Y7K7HubpV2wMC3D5sJ9cP2mQnryYUy", "Ht2LOvXISgvZkaoMl1WQRzFup4NkF2GznKSO7j3D");
 
-       addListenerOnButton();
-       addListenerOnButton1();
+        addListenerOnButton(); // Push
+        addListenerOnButton1(); // Pop
+        addListenerOnButton2(); // Unpin-Wipe
 
     }
 
@@ -71,10 +78,61 @@ public class MainActivity extends ActionBarActivity
 
     }
 
-    public void addListenerOnButton1()
-    {
+    public void addListenerOnButton1() {
         //Reading Parse for All Row's -- Listing Records
         button = (Button) findViewById(R.id.btnRead);
+        button.setOnClickListener(new OnClickListener() {
+            String names, ids, emails, phones;
+
+            @Override
+            public void onClick(View arg0) {
+                final ParseObject testObject = new ParseObject("TestObject");
+                final ParseQuery<ParseObject> query = ParseQuery.getQuery("TestObject");
+                query.whereEqualTo("Name", "Latesh"); //query.orderByAscending("Name");
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> testObjectList, ParseException e) {
+                        if (e == null) {
+                            ArrayList<ParseObject> Arlist = new ArrayList<ParseObject>();
+                            TextView tvname = (TextView) findViewById(R.id.txtViewName);
+                            TextView tvemail = (TextView) findViewById(R.id.txtViewEmail);
+                            TextView tvphone = (TextView) findViewById(R.id.txtViewPhone);
+                            TextView tvid = (TextView) findViewById(R.id.txtViewID);
+
+                            Arlist.add(testObjectList.get(0));
+                            Arlist.add(testObjectList.get(0));
+                            Arlist.add(testObjectList.get(0));
+                            Arlist.add(testObjectList.get(0));
+
+                            names = Arlist.get(0).get("Name").toString();
+                            emails = Arlist.get(0).get("Email").toString();
+                            phones = Arlist.get(0).get("Phone").toString();
+                            ids = Arlist.get(0).get("ID").toString();
+                            tvname.setText(names);
+                            tvemail.setText(emails);
+                            tvphone.setText(phones);
+                            tvid.setText(ids);
+                            Log.d("test", "Retrieved " + testObjectList.size() + " testObjects");
+
+
+                        } else {
+                            Toast bread;
+                            bread = Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG);
+                            bread.show();
+                            Log.d("test", "Error: " + e.getMessage());
+                        }
+
+                    }
+                });
+
+            }
+
+        });
+    }
+
+    public void addListenerOnButton2()
+    {
+        //Wiping - Unpinning Records from Parse Data
+        button = (Button) findViewById(R.id.btnDelete);
         button.setOnClickListener(new OnClickListener()
         {
             String names,ids,emails,phones;
@@ -88,32 +146,22 @@ public class MainActivity extends ActionBarActivity
                 {
                     public void done(List<ParseObject> testObjectList, ParseException e)
                     {
-                             if (e == null)
-                             {
-                                 ArrayList <ParseObject> Arlist = new ArrayList<ParseObject>();
-                                 TextView tvname = (TextView) findViewById(R.id.txtViewName);
-                                 TextView tvemail = (TextView) findViewById(R.id.txtViewEmail);
-                                 TextView tvphone = (TextView) findViewById(R.id.txtViewPhone);
-                                 TextView tvid = (TextView) findViewById(R.id.txtViewID);
+                        if (e == null)
+                        {
+                            for (ParseObject delete: testObjectList)
+                            {
+                                delete.deleteInBackground();
+                                Toast bread;
+                                bread = Toast.makeText(getApplicationContext(), "Record Unpinned" , Toast.LENGTH_LONG);
+                                bread.show();
 
-                                 Arlist.add(testObjectList.get(0));
-                                 Arlist.add(testObjectList.get(0));
-                                 Arlist.add(testObjectList.get(0));
-                                 Arlist.add(testObjectList.get(0));
 
-                                 names = Arlist.get(0).get("Name").toString();
-                                 emails = Arlist.get(0).get("Email").toString();
-                                 phones= Arlist.get(0).get("Phone").toString();
-                                 ids = Arlist.get(0).get("ID").toString();
-                                 tvname.setText(names);
-                                 tvemail.setText(emails);
-                                 tvphone.setText(phones);
-                                 tvid.setText(ids);
-                                 Log.d("test", "Retrieved " + testObjectList.size() + " testObjects");
+                            }
+                            Log.d("test", "Retrieved " + testObjectList.size() + " testObjects");
 
 
                         } else {
-                                 Toast bread;
+                            Toast bread;
                             bread = Toast.makeText(getApplicationContext(), "Error" , Toast.LENGTH_LONG);
                             bread.show();
                             Log.d("test", "Error: " + e.getMessage());
@@ -128,6 +176,9 @@ public class MainActivity extends ActionBarActivity
 
 
     }
+
+
+
 
 }
 
