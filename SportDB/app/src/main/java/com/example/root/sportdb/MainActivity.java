@@ -31,7 +31,7 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
 
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "lG75j5BVA3Y7K7HubpV2wMC3D5sJ9cP2mQnryYUy", "Ht2LOvXISgvZkaoMl1WQRzFup4NkF2GznKSO7j3D");
+        Parse.initialize(this, "UScatQxieE3MNKjYZlfH5WvkuRQxz1rmcheGHtNL", "tOQY1uuBcfXbKbbDGZgnxAPg8YQMsrDfBEGcatsQ");
 
         addListenerOnButton(); // Push
         addListenerOnButton1(); // Pop
@@ -114,7 +114,7 @@ public class MainActivity extends ActionBarActivity
                             Log.d("test", "Retrieved " + testObjectList.size() + " testObjects");
 
 
-                        } else {
+                        } else {  
                             Toast bread;
                             bread = Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG);
                             bread.show();
